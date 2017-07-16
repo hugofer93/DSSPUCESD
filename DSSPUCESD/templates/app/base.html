@@ -1,0 +1,107 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- These meta tags come first. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %} | DSSPUCESD</title>
+
+    <!-- Include the CSS -->
+    <link href="{% static 'app/css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/toolkit-inverse.min.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/application.css' %}" rel="stylesheet">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 sidebar">
+                <nav class="sidebar-nav">
+                    <div class="sidebar-header">
+                        <button class="nav-toggler nav-toggler-sm sidebar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggleable-sm">
+                            <span class="sr-only"></span>
+                        </button>
+                        <a class="sidebar-brand img-responsive">
+                            <img class="media-object" src="{% static 'app/img/logoDSS.png' %}">
+                        </a>
+                    </div>
+
+                    <div class="collapse nav-toggleable-sm" id="nav-toggleable-sm">
+                        
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="nav-header">U S U A R I O</li>
+                            <li>
+                                <a><span class="icon icon-v-card"> </span> {{request.user}}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}"><span class="icon icon-log-out"></span> Salir</a>
+                            </li>
+                            <li class="nav-header">P A N E L</li>
+                            <li {% block activar_inicio %}{% endblock %}>
+                                <a href="{% url 'inicio' %}"><span class="icon icon-home"> </span>Inicio</a>
+                            </li>
+                            <li {% block activar_personal %}{% endblock %}>
+                                <a href="{% url 'personal' %}"><span class="icon icon-users"> </span>Personal</a>
+                            </li>
+                            <li {% block activar_concurso %}{% endblock %}>
+                                <a href="{% url 'concurso' %}"><span class="icon icon-briefcase"> </span>Concurso</a>
+                            </li>
+
+                            <li class="nav-header">M A S . .</li>
+                            <li>
+                                <a href="http://www.pucesd.edu.ec" target="blank"><span class="icon icon-network"> </span> PUCESD</a>
+                            </li>
+
+                            <li>
+                                <a href="" target="blank"><span class="icon icon-user"> </span>Developer</a>
+                            </li>
+                        </ul>
+                        <hr class="visible-xs m-t">
+                    </div>
+                </nav>
+            </div>
+            <div class="col-sm-9 content">
+                <div class="dashhead">
+                    <div class="dashhead-titles">
+                            <h6 class="dashhead-subtitle">Panel de Control</h6>
+                            <h2 class="dashhead-title">DSS PUCESD</h2>
+                    </div>
+                    <div class="btn-toolbar dashhead-toolbar">
+                        <div class="btn-toolbar-item">
+                            <a href="{% url 'logout' %}" class="btn btn-xl"><button class="btn btn-sm btn-primary-outline"><span class="icon icon-log-out"> </span>Cerrar Sesion</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hr-divider m-t-md m-b">
+                    <h3 class="hr-divider-content hr-divider-heading">{% block titulo %}{% endblock %}</h3>
+                </div>
+                <div>
+                    {% block content %}
+                   	{% endblock %}
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <footer class="footer navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <p class="text-xs-right">
+                <a href="http://www.facebook.com/hugofer93" class="btn btn-xs text-muted" target="blank"><span class="icon icon-tools"></span> Developer:</a>
+                <a href="http://www.facebook.com/hugofer93" target="blank" class="btn btn-xs text-muted"><span class="icon icon-facebook"> </span>Facebook</a>
+                <a href="http://www.twitter.com/hugofer93" target="blank" class="btn btn-xs text-muted"><span class="icon icon-twitter"> </span>Twitter</a>
+                <a href="http://www.instagram.com/hugofer93" target="blank" class="btn btn-xs text-muted"><span class="icon icon-instagram"> </span>Instagram</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Include jQuery (required) and the JS -->
+    <script src="{% static 'app/js/jquery.min.js' %}"></script>
+    <script src="{% static 'app/js/toolkit.min.js' %}"></script>
+    {% block scriptjs %}{% endblock %}
+</body>
+</html>

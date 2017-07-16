@@ -1,0 +1,112 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Personal {% endblock %}
+{% block titulo %} Personal {% endblock %}
+
+{% block activar_personal %}class="active"{% endblock %}
+
+{% block content %}
+    <div class="flextable table-actions">
+        <div class="flextable">
+            <div class="flextable-item flextable-primary">
+                <div class="btn-toolbar-item input-with-icon w-full">
+                    <input type="text" class="form-control" placeholder="Busqueda.. Nombre, Apellido, Cedula">
+                    <span class="icon icon-magnifying-glass"></span>
+                </div>
+            </div>
+            <div class="flextable-item">
+              <div class="btn-group">
+                <a href="{% url 'agregar_persona' %}" class="btn btn-success-outline p-x">
+                    <span class="icon icon-circle-with-plus"> </span>Agregar Personal
+                </a>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="confirmar-borrar" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Desea borrar?</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-link modal-action" data-dismiss="modal">Cancelar</button>
+                    
+                    <form method="post">{% csrf_token %}
+                        <button type="submit" class="btn-link modal-action" id="borrar" name="borrar" value=""><strong>Borrar</strong> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-full">
+        <div class="table-responsive">
+            <table class="table" data-sort="table">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Estado</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for persona in object_list %}
+                    <tr>
+                        <td><a href="{{persona.get_absolute_url}}">{{persona.cedula}}</a></td>
+                        <td>{{persona.nombre|title}}</td>
+                        <td>{{persona.apellido|title}}</td>
+                        <td>{% if persona.estado %} <span class="icon icon-check"></span> {% else %} <span class="icon icon-circle-with-cross"></span> {% endif %}</td>
+                        <td>
+                            <a href="{{persona.get_absolute_url}}" class="btn btn-xs btn-primary-outline p-x">
+                                <span class="icon icon-pencil"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-danger-outline p-x" data-toggle="modal" data-target="#confirmar-borrar" data-nombre="{{persona.nombre|title}} {{persona.apellido|title}}" data-cedula="{{persona.cedula}}" data-id="{{persona.id}}"><span class="icon icon-erase"></span> 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% include 'app/paginacion.html' %}
+
+{% endblock %}
+
+{% block scriptjs %}
+{% load staticfiles %}
+<script src="{% static 'app/js/tablesorter.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // call the tablesorter plugin
+        $("[data-sort=table]").tablesorter({
+        // Sort on the second column, in ascending order
+        sortList: [[1,0]]
+        });
+    });
+
+    $('#confirmar-borrar').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var nombres = button.data('nombre') // Extract info from data-* attributes
+        var cedula = button.data('cedula')
+        var id = button.data('id')
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-body').text('Desea eliminar a ' + nombres + ' con Cedula: ' + cedula)
+
+        $('#borrar').attr('value',id)
+    });
+</script>
+{% endblock %}

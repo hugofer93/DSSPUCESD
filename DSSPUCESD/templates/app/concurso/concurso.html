@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Concurso {% endblock %}
+{% block titulo %} Concurso {% endblock %}
+
+{% block activar_concurso %}class="active"{% endblock %}
+
+{% block content %}
+    <div class="list-group">
+        <h4 class="list-group-header">Evaluaciones Agregadas Recientemente</h4>
+            {% for persona in object_list %}
+                <a class="list-group-item" href="{{ persona.get_absolute_url }}">
+                    <span class="pull-right text-muted">Cedula {{ persona.cedula|title }}</span> {{ persona.nombre|title }} {{ persona.apellido|title }}
+                </a>
+            {% empty %}
+                <a class="list-group-item">
+                <span class="pull-right text-muted">Haga clic en el boton agregar</span>No ha ingresado personal
+            {% endfor %}
+        </a>
+    </div>
+    
+    {% if object_list %}
+    <a href="{% url 'todos_personal' %}" class="btn btn-primary-outline p-x"><span class="icon icon-list"> </span>Ver todos</a>
+    {% endif %}
+    <a href="{% url 'agregar_concurso' %}" class="btn btn-success-outline p-x"><span class="icon icon-circle-with-plus"> </span>Agregar</a>
+{% endblock %}

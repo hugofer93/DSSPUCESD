@@ -1,0 +1,131 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Concurso {% endblock %}
+{% block titulo %} Concurso {% endblock %}
+
+{% block activar_concurso %}class="active"{% endblock %}
+
+{% block content %}
+    <form class="form-horizontal" method="post" onsubmit='puntos(this)'>
+        {% csrf_token %}
+        <h1> CONTRATACIÓN DE DOCENTES PUCESD</h1>
+
+        <br> 
+        <fieldset>
+            <legend>Titulos profesionales: </legend>
+                 <input type='radio' name='respuesta1' value='{{parametro.titulo.0.porcentaje}}'> {{parametro.titulo.0}}
+            <br> <input type='radio' name='respuesta1' value='{{parametro.titulo.1.porcentaje}}'> {{parametro.titulo.1}}
+            <br> <input type='radio' name='respuesta1' value='{{parametro.titulo.2.porcentaje}}'> {{parametro.titulo.2}}
+            <br> <input type='radio' name='respuesta1' value='{{parametro.titulo.3.porcentaje}}'> {{parametro.titulo.3}}
+            <br> <input type='radio' name='respuesta1' value='{{parametro.titulo.4.porcentaje}}'> {{parametro.titulo.4}}
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Experiencia académica: [1] punto(s) por año de experiencia</legend>
+            <input type="number" id="academica" min="1" name="academica" placeholder="numeros entre [1-10]" />
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Experiencia investigativa: </legend> 
+                 Director de investigacion <input type="number" id="investigativa1" min="1" name="investigativa1" placeholder="número de participaciones" /><br> 
+                  Miembro de equipo de investigacion <input type="number" id="investigativa2" min="1" name="investigativa2" placeholder="número de participaciones" /><br> 
+                  Ayudante o Auxiliar de investigacion
+                 <input type="number" id="investigativa3" min="1" name="investigativa3" placeholder="número de participaciones" />
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Experiencia profesional en el área: [1] punto(s) por año de experiencia</legend>
+            <input type="number" id="profesional" min="1" name="profesional" placeholder="numeros entre [1-10]" />
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Premios o distinciones: </legend> 
+                <div>
+                    Reconocimiento Internacional:  [2] punto(s) por cada uno
+                    <input type="number" id="internacional" min="1" name="internacional" placeholder="numeros entre [1-10]" />
+                </div>
+                <br> 
+                <div>
+                    Reconocimiento Nacional:  [1] punto(s) por cada uno
+                    <input type="number" id="nacional" min="1" name="nacional" placeholder="numeros entre [1-10]" />
+                </div>
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Publicaciones: </legend> 
+                  Libro <input type="number" id="publicaciones1" min="1" name="investigativa1" placeholder="número de ejemplares" /><br>Revista indexada autor principal <input type="number" id="publicaciones2" min="1" name="publicaciones2" placeholder="número de ejemplares" /><br>
+                  Revista indexada como coautor <input type="number" id="publicaciones3" min="1" name="publicaciones3" placeholder="número de ejemplares" /><br>
+                  Revistas no indexadas <input type="number" id="publicaciones4" min="1" name="publicaciones4" placeholder="número de ejemplares" />
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Participación en eventos académicos: </legend> 
+                Expositor de seminarios, congresos u otros <input type="number" id="participacion1" min="1" name="participacion1" placeholder="número de participaciones" /><br>
+                Comentarista <input type="number" id="participacion2" min="1" name="participacion2" placeholder="número de participaciones" /><br>
+                Participante <input type="number" id="participacion3" min="1" name="participacion3" placeholder="número de participaciones" />
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Vinculación con la colectividad: </legend> 
+        </fieldset>
+
+        <br> 
+        <fieldset>
+            <legend> Entrevista: </legend> 
+                 <input type='checkbox' name='Entrevista1' value='{{parametro.entrevista.0.porcentaje}}'> {{parametro.entrevista.0}}
+            <br> <input type='checkbox' name='Entrevista2' value='{{parametro.entrevista.1.porcentaje}}'> {{parametro.entrevista.1}}
+            <br> <input type='checkbox' name='Entrevista3' value='{{parametro.entrevista.2.porcentaje}}'> {{parametro.entrevista.2}}
+            <br> <input type='checkbox' name='Entrevista4' value='{{parametro.entrevista.3.porcentaje}}'> {{parametro.entrevista.3}}
+            <br> <input type='checkbox' name='Entrevista5' value='{{parametro.entrevista.4.porcentaje}}'> {{parametro.entrevista.4}}
+        </fieldset>
+        
+        <br> 
+        <fieldset>
+            <legend> Pruebas: </legend> 
+                 <input type='checkbox' name='Pruebas1' value='{{parametro.prueba.0.porcentaje}}'> {{parametro.prueba.0}}
+            <br> <input type='checkbox' name='Pruebas2' value='{{parametro.prueba.1.porcentaje}}'> {{parametro.prueba.1}}
+            <br> <input type='checkbox' name='Pruebas3' value='{{parametro.prueba.2.porcentaje}}'> {{parametro.prueba.2}}
+        </fieldset>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7">
+                <button type="submit" name="guardar" class="btn btn-success-outline"><span class="icon icon-save"></span> Guardar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block scriptjs %}
+<script type="text/javascript">
+
+function puntos(examen)
+{
+var valor=0;
+var suma=0;
+var valor_opcion=0;
+var valor_radio=0;
+suma_opcion=0;  
+suma_radio=0;   
+var suma_total=0;       
+
+for(i=0; i<examen.elements.length; i++)
+    {
+
+        if((examen.elements[i].type=='radio') && (examen.elements[i].value) && (examen.elements[i].checked) || (examen.elements[i].type=='number')  && (examen.elements[i].value) || (examen.elements[i].type=='checkbox') && (examen.elements[i].value) && (examen.elements[i].checked))
+        //if((examen.elements[i].type=='checkbox') && (examen.elements[i].value) && (examen.elements[i].checked))
+            {
+                valor=parseFloat(examen.elements[i].value);
+                suma=parseFloat(suma)+parseFloat(valor);
+            }
+    }
+    alert ('Su puntaje es de ' + suma + ' puntos');
+}
+</script>
+{% endblock %}

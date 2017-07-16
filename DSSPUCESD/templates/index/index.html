@@ -1,0 +1,163 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>DSS PUCESD</title>
+
+      <link href="{% static 'index/css/fonts.css' %}" rel="stylesheet">
+      <link href="{% static 'index/css/toolkit-startup.css' %}" rel="stylesheet">
+      <link href="{% static 'index/css/application-startup.css' %}" rel="stylesheet">
+
+    <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      /* …curses ios, etc… */
+      @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+        body {
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+        }
+        #stage {
+          height: 1px;
+          overflow: auto;
+          min-height: 100vh;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+    </style>
+  </head>
+
+
+<body>
+<div class="stage-shelf stage-shelf-right hidden" id="sidebar">
+  <ul class="nav nav-bordered nav-stacked">
+    <li class="nav-header">Examples</li>
+    <li class="active">
+      <a href="index.html">Startup</a>
+    </li>
+    <li>
+      <a href="minimal/index.html">Minimal</a>
+    </li>
+    <li>
+      <a href="bold/index.html">Bold</a>
+    </li>
+    <li class="nav-divider"></li>
+    <li class="nav-header">Docs</li>
+    <li>
+      <a href="docs/index.html">Toolkit</a>
+    </li>
+    <li>
+      <a href="http://getbootstrap.com">Bootstrap</a>
+    </li>
+  </ul>
+</div>
+
+<div class="stage" id="stage">
+
+<div class="block block-inverse block-fill-height app-header"
+     style="background-image: url({% static 'index/img/startup-1.jpg' %});">
+
+  <nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed p-x-0"
+              data-target="#stage" data-toggle="stage" data-distance="-250">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="">
+        <strong style="background: #fff; padding: 12px; border-radius: 4px; color: #28669F;">DSS
+        </strong>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse text-uppercase">
+      <ul class="nav navbar-nav navbar-right">
+        <li >
+          <a href="/index.html">StartUp</a>
+        </li>
+        <li >
+          <a href="minimal/index.html">Minimal</a>
+        </li>
+        <li >
+          <a href="bold/index.html">Bold</a>
+        </li>
+        <li >
+          <a href="docs/index.html">Docs</a>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+
+  <img class="app-graph" src="{% static 'index/img/startup-0.svg' %}">
+
+  <div class="block-xs-middle p-b-lg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10 col-md-6">
+          <h1 class="block-title m-b-sm">DSS PUCESD</h1>
+          <p class="lead m-b-md text-muted">Proyecto de Aplicaciones Difusas para la seleccion del personal docente (Concurso de Merito y Oposicion)</p>
+          <a class="btn btn-primary btn-lg" href="{% url 'login' %}">Ingresar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="block block-inverse app-footer">
+ <div class="container">
+    <div class="row">
+      <div class="col-sm-5 m-b-md">
+        <ul class="list-unstyled list-spaced">
+          <li class="m-b"><h6 class="text-uppercase">Acerca de..</h6></li>
+          <li class="text-muted">
+           Hemos desarrollado el DSS para la seleccion del personal docente como proyecto para Aplicaciones Difusas. Se implemento un tema oficial de Bootstrap porque <a href="http://www.facebook.com/hugofer93">Hugo Silva</a> cuenta con la licencia para el uso de este tema.
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-2 col-sm-offset-1 m-b-md">
+      </div>
+      <div class="col-sm-2 m-b-md">
+        <ul class="list-unstyled list-spaced">
+          <li class="m-b"><h6 class="text-uppercase">Software</h6></li>
+          <li class="text-muted"><a href="">DSS</a></li>
+          <li class="text-muted"><a href="http://www.djangoproject.com/">Django</a></li>
+          <li class="text-muted"><a href="http://www.python.org/">Python</a></li>
+          <li class="text-muted"><a href="http://www.postgresql.org/">PostgreSQL</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-2 m-b-md">
+        <ul class="list-unstyled list-spaced">
+          <li class="m-b"><h6 class="text-uppercase">Equipo</h6></li>
+          <li class="text-muted">Delgado A.</li>
+          <li class="text-muted">Moreno L.</li>
+          <li class="text-muted">Quiguango J.</li>
+          <li class="text-muted"><a href="http://www.facebook.com/hugofer93" target="blank">Silva H.</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+    <script src="{% static 'index/js/jquery.min.js' %}"></script>
+    <script src="{% static 'index/js/toolkit.js' %}"></script>
+    <script src="{% static 'index/js/application.js' %}"></script>
+  </body>
+</html>
